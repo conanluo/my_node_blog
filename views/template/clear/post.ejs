@@ -1,0 +1,27 @@
+<%-include header%>
+
+    <div class="col-md-12 blog-main">
+        <h2>New Post</h2>
+        <form action="/post" method="post">
+            <input type="text" name="title" id="title" placeholder="Title" class="form-control input-lg">
+            <textarea id="summernote" name="post"></textarea>
+            <div class="buttons clearfix">
+                <button type="submit" class="btn btn-xlarge btn-clean-one">Submit</button>
+            </div>                    
+        </form>
+    </div>
+<%-include footer%>
+<script>
+$(document).ready(function() {
+    $('#summernote').summernote({
+         //placeholder : 'placeholder',
+         //disableDragAndDrop: true,
+         //dialogsInBody: false,
+         dialogsFade: true,
+         lang : 'zh-CN',
+         minHeight:400
+    });
+    
+    
+});
+</script>

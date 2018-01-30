@@ -1,0 +1,1 @@
+mongod --dbpath "D:\360тфел\app\mongdbйЩ╬щ©Б\db"

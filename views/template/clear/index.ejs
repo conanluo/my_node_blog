@@ -1,0 +1,41 @@
+<%-include header%>
+                <div class="col-md-8 blog-main">
+                <%
+                for(var i=0;i < posts.length;i++){
+                    if(i%2==0){
+                %>
+                        <div class="row">
+                <%
+                    }
+                %>
+                            <div class="col-md-6 col-sm-6">
+                                <article class=" blog-teaser">
+                                    <header>
+                                        <img src="clear_img/<%=i%>.jpg" alt="">
+                                        <h3><a href="single.html"><%=posts[i].title%></a></h3>
+                                        <span class="meta"><%=posts[i].time.day%>, <%=posts[i].name%></span>
+                                        <hr>
+                                    </header>
+                                    <div class="body">
+                                        <%-posts[i].post%>
+                                    </div>
+                                    <div class="clearfix">
+                                        <a href="single.html" class="btn btn-clean-one">Read more</a>
+                                    </div>
+                                </article>
+                            </div>
+                <% 
+                    if(i%2==1){
+                %>
+                        </div>
+                <%
+                    }
+                }   
+                %>
+                   
+                    <div class="paging">
+                        <a href="#" class="older">Older Post</i></a>
+                    </div>
+                </div>
+<%-include side%>
+<%-include footer%>
