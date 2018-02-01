@@ -2,34 +2,63 @@
                 <div class="col-md-8 blog-main">
                 <%
                 for(var i=0;i < posts.length;i++){
-                    if(i%2==0){
                 %>
                         <div class="row">
                 <%
-                    }
+                    for(var k=0; k < 2; k++){
+                        i=i+k
+                        if(i < posts.length){
+                            var postObj=posts[i];
+                            var tempPost=postObj.post
                 %>
                             <div class="col-md-6 col-sm-6">
                                 <article class=" blog-teaser">
                                     <header>
-                                        <img src="clear_img/<%=i%>.jpg" alt="">
-                                        <h3><a href="single.html"><%=posts[i].title%></a></h3>
-                                        <span class="meta"><%=posts[i].time.day%>, <%=posts[i].name%></span>
+                                    <%
+                                        var tempImg=''
+                                        if(tempPost.indexOf('<img')!=-1){    //>
+                                            tempImg=tempPost.split('<img')[1].split('>')[0]
+                                            tempImg="<img"+tempImg+">"
+                                    %>
+                                            <%-tempImg%>
+                                    <%
+                                        }else{
+                                    %>
+                                        <img src="/images/title_notebook.jpg" >
+                                    <%
+                                        }
+                                    %>
+
+                                    
+                                        <h3><a href="single.html"><%=postObj.title%></a></h3>
+                                        <span class="meta"><%=postObj.time.day%>, <%=postObj.name%></span>
                                         <hr>
                                     </header>
                                     <div class="body">
-                                        <%-posts[i].post%>
+                                        <% 
+                                            var post=tempPost
+                                            var postArr=post.split('</p>')
+                                            var pp=""
+                                            for(var j=0;j < postArr.length;j++){
+                                                if(postArr[j]!=""){
+                                                    post=postArr[j]+"&nbsp;......"+"</p>";
+                                                    break;
+                                                }
+                                            }
+                                        %>
+                                        <%-post%>
                                     </div>
                                     <div class="clearfix">
-                                        <a href="single.html" class="btn btn-clean-one">Read more</a>
+                                        <a href="/single/:<%=postObj._id%>" class="btn btn-clean-one">Read more<%=postObj._id%></a>
                                     </div>
                                 </article>
                             </div>
-                <% 
-                    if(i%2==1){
+                <%
+                        }
+                    } 
                 %>
                         </div>
                 <%
-                    }
                 }   
                 %>
                    

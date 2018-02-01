@@ -24,6 +24,8 @@ app.set('port',process.env.PORT || 8888)
 // view engine setup
 app.set('views', path.join(__dirname, 'views/template/clear'));
 app.set('view engine', 'ejs');
+app.set('case sensitive routing', true);//设置路由区分大小写
+
 app.use(flash())
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

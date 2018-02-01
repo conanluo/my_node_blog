@@ -6,7 +6,7 @@
             <input type="text" name="title" id="title" placeholder="Title" class="form-control input-lg">
             <textarea id="summernote" name="post"></textarea>
             <div class="buttons clearfix">
-                <button type="submit" class="btn btn-xlarge btn-clean-one">Submit</button>
+                <button id="submit" type="submit" class="btn btn-xlarge btn-clean-one">Submit</button>
             </div>                    
         </form>
     </div>
@@ -19,9 +19,70 @@ $(document).ready(function() {
          //dialogsInBody: false,
          dialogsFade: true,
          lang : 'zh-CN',
-         minHeight:400
+         minHeight:400,  
+        toolbar: [  
+            ['style', ['bold', 'italic', 'underline', 'clear']],  
+            ['fontsize', ['fontsize']],  
+            ['color', ['color']],  
+            ['para', ['ul', 'ol', 'paragraph']],  
+            ['height', ['height']],  
+            ['insert', ['picture', 'video']],
+            ['view', ['fullscreen', 'codeview']],  
+        ],  
+        callbacks: { 
+            onImageUpload: function (files) {
+                sendFile(files)
+            }
+        }
     });
     
-    
+
+    $("#submit").click(function(){
+        var post=$("#summernote")
+        var title=$("#title")
+        var alertText=(title.val()==""?"标题":"")+(post.val()==""?'内容':"")+"不能为空"
+
+//检测标题 , 内容是否为空
+        if(title.val()==""||post.val()==""){
+            popText(alertText);
+            title.val()==""?title.focus():post.focus()
+            return false;
+        }
+    })
 });
+
+function popText(str){
+    $('.flash_alert').addClass('alert alert-danger')
+    $('.flash_alert').html(str).show()
+/*    
+    window.setTimeout(function(){
+        $('.flash_alert').hide('toggle')
+    },3000)
+*/    
+}
+
+function sendFile(files) {  
+    var imageData = new FormData();
+    imageData.append("imageData", files[0]);
+    $.ajax({
+        data: imageData,
+        type: "POST",
+        url: "/uploadImage",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (result) {
+            console.log('zaizheli ')
+            if (result.status = "success") {
+                var imgNode = document.createElement("img");
+                //读取后台返回的图片url
+                imgNode.src = result.imageUrl;
+                $('#summernote').summernote('insertNode', imgNode);
+            }
+        },
+        error: function () {
+            alert("上传图片失败");
+        }
+    });
+}  
 </script>

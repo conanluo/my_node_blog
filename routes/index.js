@@ -6,8 +6,8 @@ var Post=require('../models/post.js')
 module.exports = (app) => {
 	//主页
 	app.get('/',(req, res, next)=>{
-		Post.get(null,(err,posts)=>{
-			console.log(posts)
+		Post.getAll(null,(err,posts)=>{
+			//console.log(posts)
 			if(err){
 				posts=[];
 			}

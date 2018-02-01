@@ -111,11 +111,13 @@
         </div>
     </header>
     <% if (error){%>
-    <div class="alert alert-danger flash_alert" sytle='text-align:center'><%=error%></div>
+        <div class="alert alert-danger flash_alert"><%=error%></div>
+    <%}else if (success){%>
+        <div class="alert alert-success flash_alert"><%=success%></div>
+    <%}else{%>
+        <div class="flash_alert"></div>
     <%}%>
-    <% if (success){%>
-    <div class="alert alert-success flash_alert" sytle='text-align:center'><%=success%></div>
-    <%}%>
+
     <div class="widewrapper main">
         <div class="container">
             <div class="row">
