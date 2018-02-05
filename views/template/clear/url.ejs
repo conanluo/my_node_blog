@@ -1,20 +1,48 @@
 <%-include header%>
                 <div class="col-md-6 col-md-offset-3 clean-superblock" id="contact">
+
+ <%
+if(G.shortUrlCode){
+%>
+
+<h4>your webside:</h4><textarea id='orgUrl'><%=G.orgUrl%></textarea>
+<h4>your short cut:<%=G.shortUrlCode%></h4>
+
+<script>
+$(document).ready(function() {
+    $('#orgUrl').summernote({
+        //placeholder : 'placeholder',
+        //disableDragAndDrop: true,
+        //dialogsInBody: false,
+        dialogsFade: false,
+        lang : 'zh-CN',
+        minHeight:200,  
+        maxHeight:200,
+        toolbar: false
+    });
+})
+</script>
+
+<%
+}else{
+ %> 
                     <h4>Please type your full Url <div class="text-danger">(including "http://" or "https://")</div></h4>
                     
                     <form action="/url" method="post" accept-charset="utf-8" class="contact-form">
                         <input type="text" name="url" id="url" placeholder="webside address" class="form-control input-lg" value="http://">
-<%
-if(user){
-%>
+
+    <%
+    if(user){
+    %>
                         <input type="hidden" name="user" value='<%=user.name%>'>
-<%
-}
-%>
+    <%
+    }
+    %>
 
                         <div class="buttons clearfix">
                             <button type="submit" class="btn btn-xlarge btn-clean-one">Submit</button>
                         </div>                    
                     </form>
+<%}%>                    
                 </div>
 <%-include footer%>

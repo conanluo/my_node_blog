@@ -95,27 +95,28 @@ Post.get=(obj,callback,isFindAll)=>{
 				mongodb.close();
 				return callback(err);
 			}
+			//根据isFindALL进行查找一个,或者多个查询,默认false
+			//根据obj的参数进行查询
+			if(isFindAll){
+				collection.findOne(obj,(err,doc)=>{
+					mongodb.close();
+					if(err){
+						return callback(err);
+					}
+					callback(null,doc);//返回查找的数据
+				})
+			}else{
+				collection.find(obj).sort({
+					time:-1
+				}).toArray((err,docs)=>{
+					mongodb.close();
+					if(err){
+						return callback(err);//失败!返回err
+					}
+					callback(null,docs);//成功返回数组查询结果
+				});
+			}
 		})
-		//根据isFindALL进行查找一个,或者多个查询,默认false
-		//根据obj的参数进行查询
-		if(isFindAll){
-			collection.findOne(obj,(err,doc)=>{
-				mongodb.close();
-				if(err){
-					return callback(err);
-				}
-				callback(null,doc);//返回查找的数据
-			})
-		}else{
-			collection.find(obj).sort({
-				time:-1
-			}).toArray((err,docs)=>{
-				mongodb.close();
-				if(err){
-					return callback(err);//失败!返回err
-				}
-				callback(null,docs);//成功返回数组查询结果
-			});
-		}
+		
 	})
 }*/
